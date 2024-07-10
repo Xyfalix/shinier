@@ -36,17 +36,6 @@ export default function LoginForm({ setUser }) {
       <div className="form-container bg-slate-700 mx-auto max-w-md p-5 rounded border">
         <form autoComplete="off" onSubmit={handleSubmit}>
           <div className="form-control">
-            <label className="text-m my-2 text-info font-serif">Name</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="input rounded border focus:outline-none focus:ring focus:border-blue-200"
-              required
-            />
-          </div>
-          <div className="form-control">
             <label className="text-m my-2 text-info font-serif">Email</label>
             <input
               type="email"

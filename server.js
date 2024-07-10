@@ -18,6 +18,7 @@ app.use(express.static(path.join(__dirname, "dist")));
 app.use("/api/users", require("./routes/api/users"));
 app.use("/api/orders", require("./routes/api/orders"));
 app.use("/api/items", require("./routes/api/items"));
+app.use("/api/search", require("./routes/api/search"));
 
 app.get("/api", (req, res) => {
   res.json({ msg: "Hello World!" });
@@ -30,7 +31,7 @@ app.get("/*", (req, res) => {
 
 //* listen
 //? Heroku opens Port 3300
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 app.listen(port, function () {
   debug(`Express app running on port ${port}`);
