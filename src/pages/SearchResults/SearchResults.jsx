@@ -1,5 +1,5 @@
 import NavBar from "../../components/NavBar";
-import { getUser } from "../../utilities/users-service";
+import { getUser, fetchCards } from "../../utilities/users-service";
 import { useState, useEffect } from "react";
 import Card from "../../components/Card";
 
@@ -10,7 +10,6 @@ export default function SearchResults({ firstSearch, updateCardsDetails }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const cardsPerPage = 12;
-  const apiKey = "e1b93a4d-a6b1-4c49-8dac-c1ed6425dcf6";
 
   function handleSearch(submittedSearch) {
     setSearchTerm(submittedSearch)
@@ -19,36 +18,24 @@ export default function SearchResults({ firstSearch, updateCardsDetails }) {
 
   useEffect(() => {
 
-    async function fetchCards() {
+    async function displayCards() {
       if (searchTerm) {
         try {
           setLoading(true);
-
-          const apiUrl = `https://api.pokemontcg.io/v2/cards?q=name:"${searchTerm}"`;
-
-          const response = await fetch(apiUrl, {
-            method: "GET",
-            headers: {
-              "X-Api-Key": apiKey
-            },
-          });
-
-          if (response.ok) {
-            const data = await response.json();
-            const cardsData = data.data;
-            console.log(cardsData)
-            setCards(cardsData);
-            // state lift cardDetails state in App.jsx to pass down as prop to CardDetails component
-            updateCardsDetails(cardsData);
-            setLoading(false);
-          }
+          const cardsData = await fetchCards(searchTerm);
+          console.log(cardsData)
+          setCards(cardsData);
+          // state lift cardDetails state in App.jsx to pass down as prop to CardDetails component
+          updateCardsDetails(cardsData);
+          setLoading(false);
+          
         } catch (error) {
-          console.error("Search failed", error);
+          console.error("Card search failed", error);
         }
       }
     }
 
-    fetchCards();
+    displayCards();
 
   }, [searchTerm])
 

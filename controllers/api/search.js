@@ -9,7 +9,8 @@ const fetchCards = async (req, res) => {
     const response = await axios.get(`${baseApiUrl}?q=name:"${searchTerm}"`, {
       headers: { "X-Api-Key": apiKey },
     });
-    const data = await response.json();
+    const data = await response.data;
+    console.log(data);
     const cardsData = data.data;
     res.status(200).json(cardsData);
   } catch (error) {

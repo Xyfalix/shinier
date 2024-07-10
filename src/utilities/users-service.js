@@ -115,3 +115,9 @@ export async function addItem(item) {
   const newItemData = await usersAPI.addItem(item);
   return newItemData;
 }
+
+// search for cards
+export async function fetchCards(searchTerm) {
+  const cardData = await usersAPI.fetchCards(searchTerm);
+  return cardData;
+}

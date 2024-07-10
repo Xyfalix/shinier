@@ -2,6 +2,7 @@
 const BASE_URL = "/api/users";
 const ORDERS_URL = "/api/orders";
 const ITEMS_URL = "/api/items";
+const SEARCH_URL = "/api/search";
 
 export async function signUp(userData) {
   // Fetch uses an options object as a second arg to make requests
@@ -248,5 +249,20 @@ export async function addItem(item) {
     return data;
   } catch (error) {
     throw new Error("Error adding item to database");
+  }
+}
+
+export async function fetchCards(searchTerm) {
+  try {
+    const response = await fetch(`${SEARCH_URL}/${searchTerm}`);
+
+    if (!response.ok) {
+      throw new Error("Pokemon card search request failed");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(`Error fetching cards: ${error.message}`);
   }
 }
