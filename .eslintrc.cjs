@@ -20,7 +20,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ["**/*.test.js", "server.js"],
+      files: ["**/*.test.js", "server.js", "setupTests.js"],
       env: {
         jest: true,
       },

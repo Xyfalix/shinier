@@ -41,9 +41,9 @@ export default function NavBar({ user, setUser, handleSearch }) {
               <p className="mx-2 mb-1 text-xl"><BsFillCartPlusFill /></p>
             </Link>
             <div className="dropdown dropdown-end">
-              <label tabIndex={0} className="btn btn-ghost rounded-btn">
+              <button tabIndex={0} className="btn btn-ghost rounded-btn">
                 👤 {user.name}
-              </label>
+              </button>
               <ul
                 tabIndex={0}
                 className="menu dropdown-content z-[1] p-2 shadow bg-indigo-700 rounded-box w-32 mt-2 items-start"
@@ -72,7 +72,7 @@ export default function NavBar({ user, setUser, handleSearch }) {
             {location.pathname !== "/" && <SearchInput isInNavBar={true} handleSearch={handleSearch} />} {/* Conditionally render SearchInput */}
           </div>
           <div className="flex flex-row items-center">
-            <a className="btn btn-ghost normal-case text-lg" onClick={handleLogin}>👤 Log In</a>
+            <button className="btn btn-ghost normal-case text-lg" onClick={handleLogin}>👤 Log In</button>
           </div>
         </div>
       )}
