@@ -4,10 +4,11 @@ import NavBar from "./NavBar";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 
-async function renderComponent(user) {
+async function renderComponent(user, children) {
   render(
     <MemoryRouter>
       <NavBar user={user} />
+      {children}
     </MemoryRouter>,
   );
 }
@@ -24,19 +25,17 @@ describe("when user is not signed in", () => {
   test("redirects to login page when Log In button is clicked", async () => {
     const user = userEvent.setup();
 
-    const { container } = render(
-      <MemoryRouter>
-        <NavBar />
-        <Routes>
-          <Route path="/login" element={<div>Login Page</div>} />
-        </Routes>
-      </MemoryRouter>,
+    await renderComponent(
+      null,
+      <Routes>
+        <Route path="/login" element={<div>Login Page</div>} />
+      </Routes>,
     );
 
     const logInButton = screen.getByRole("button", { name: /log in/i });
     await user.click(logInButton);
 
-    expect(container.innerHTML).toMatch("Login Page");
+    expect(screen.getByText("Login Page")).toBeInTheDocument();
   });
 });
 
@@ -62,18 +61,16 @@ describe("when user is signed in", () => {
   test("Clicking on the shopping cart when user is logged in redirects user to the shopping cart page", async () => {
     const user = userEvent.setup();
 
-    const { container } = render(
-      <MemoryRouter>
-        <NavBar user={testUser} />
-        <Routes>
-          <Route path="/shoppingCart" element={<div>Shopping Cart</div>} />
-        </Routes>
-      </MemoryRouter>,
+    await renderComponent(
+      testUser,
+      <Routes>
+        <Route path="/shoppingCart" element={<div>Shopping Cart</div>} />
+      </Routes>,
     );
 
     const shoppingCartButton = screen.getByTestId("shopping-cart-button");
     await user.click(shoppingCartButton);
 
-    expect(container.innerHTML).toMatch("Shopping Cart");
+    expect(screen.getByText("Shopping Cart")).toBeInTheDocument();
   });
 });
