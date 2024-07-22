@@ -38,7 +38,7 @@ export default function NavBar({ user, setUser, handleSearch }) {
           </div>
           <div className="flex flex-row items-center">
             <Link to="/shoppingCart">
-              <p className="mx-2 mb-1 text-xl"><BsFillCartPlusFill /></p>
+              <button data-testid="shopping-cart-button" className="mx-2 mb-1 text-xl"><BsFillCartPlusFill /></button>
             </Link>
             <div className="dropdown dropdown-end">
               <button tabIndex={0} className="btn btn-ghost rounded-btn">

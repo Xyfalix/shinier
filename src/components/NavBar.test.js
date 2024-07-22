@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
 import NavBar from "./NavBar";
 import "@testing-library/jest-dom";
+import userEvent from "@testing-library/user-event";
 
 async function renderComponent(user) {
   render(
@@ -19,6 +20,24 @@ describe("when user is not signed in", () => {
 
     expect(logInButton).toBeInTheDocument();
   });
+
+  test("redirects to login page when Log In button is clicked", async () => {
+    const user = userEvent.setup();
+
+    const { container } = render(
+      <MemoryRouter>
+        <NavBar />
+        <Routes>
+          <Route path="/login" element={<div>Login Page</div>} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    const logInButton = screen.getByRole("button", { name: /log in/i });
+    await user.click(logInButton);
+
+    expect(container.innerHTML).toMatch("Login Page");
+  });
 });
 
 describe("when user is signed in", () => {
@@ -35,10 +54,26 @@ describe("when user is signed in", () => {
   test("User's name  is visible", async () => {
     await renderComponent(testUser);
 
-    screen.debug();
+    const userButton = screen.getByRole("button", { name: /test/i });
 
-    const userLabel = screen.getByRole("button", { name: /test/i });
+    expect(userButton).toBeInTheDocument();
+  });
 
-    expect(userLabel).toBeInTheDocument();
+  test("Clicking on the shopping cart when user is logged in redirects user to the shopping cart page", async () => {
+    const user = userEvent.setup();
+
+    const { container } = render(
+      <MemoryRouter>
+        <NavBar user={testUser} />
+        <Routes>
+          <Route path="/shoppingCart" element={<div>Shopping Cart</div>} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    const shoppingCartButton = screen.getByTestId("shopping-cart-button");
+    await user.click(shoppingCartButton);
+
+    expect(container.innerHTML).toMatch("Shopping Cart");
   });
 });
