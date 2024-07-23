@@ -4,4 +4,7 @@ module.exports = {
   testEnvironmentOptions: {
     customExportConditions: [""],
   },
+  moduleNameMapper: {
+    "\\.(css|less|scss|sass)$": "<rootDir>/styleMock.js",
+  },
 };
