@@ -15,7 +15,6 @@ export default function SearchResults({ firstSearch, updateCardsDetails }) {
     setSearchTerm(submittedSearch)
   }
 
-
   useEffect(() => {
 
     async function displayCards() {
@@ -23,7 +22,6 @@ export default function SearchResults({ firstSearch, updateCardsDetails }) {
         try {
           setLoading(true);
           const cardsData = await fetchCards(searchTerm);
-          console.log(cardsData)
           setCards(cardsData);
           // state lift cardDetails state in App.jsx to pass down as prop to CardDetails component
           updateCardsDetails(cardsData);
