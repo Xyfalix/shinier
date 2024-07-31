@@ -4,7 +4,7 @@ import { getAllItems } from "../../utilities/users-service";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../../utilities/users-service";
 
-export default function Items(updateFirstSearch) {
+export default function Items({ updateFirstSearch }) {
   const [user, setUser] = useState(getUser);
   const [items, setItems] = useState(null);
   const navigate = useNavigate();

@@ -76,7 +76,7 @@ export default function ShoppingCart({ updateFirstSearch }) {
         <div className="shopping-cart-container w-7/12">
           <p className="text-3xl text-white mx-2 my-5">Shopping Cart</p>
           <div className="flex flex-row w-96 bg-slate-800 mx-2 my-5 p-3 justify-between items-center border-2 border-white">
-            <p className="mx-2 text-white text-xl">
+            <p className="mx-2 text-white text-xl" data-testid="total-qty">
               {cartData?.totalQty || 0} Total Item(s)
             </p>
             <button
@@ -115,7 +115,7 @@ export default function ShoppingCart({ updateFirstSearch }) {
         {cartData?.cartWithExtPrice?.length > 0 && (
           <div className="summary-container w-max h-max mt-44 ml-8 border-white border-2">
             <div className="bg-slate-800 flex flex-col items-center">
-              <p className="mx-10 mt-2 text-white text-3xl">
+              <p className="mx-10 mt-2 text-white text-3xl" data-testid="total-sum">
                 Total:{" "}
                 {typeof cartData?.orderTotal === "number"
                   ? `$${cartData.orderTotal.toFixed(2)}`
