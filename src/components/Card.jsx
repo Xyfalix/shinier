@@ -82,6 +82,7 @@ export default function Card({
             <button
               onClick={handleAddToCart}
               className="btn btn-sm bg-indigo-700 mr-7"
+              data-testid="add-to-cart-button"
               disabled={price === "Out of Stock"}
             >
               <BsFillCartPlusFill />
